@@ -1,0 +1,71 @@
+<Window x:Class="TurboDM.AddDownloadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Yeni indirme — TurboDM" Width="620" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource Panel}" ShowInTaskbar="True"
+        Icon="pack://application:,,,/Assets/app.ico">
+    <StackPanel Margin="20,18,20,16">
+        <Label Content="Adres (URL)"/>
+        <TextBox x:Name="UrlBox" LostFocus="Url_LostFocus" KeyDown="Url_KeyDown"/>
+
+        <Label Content="Dosya adı" Margin="0,12,0,0"/>
+        <TextBox x:Name="NameBox" TextChanged="Name_Changed"/>
+
+        <Label Content="Kayıt klasörü" Margin="0,12,0,0"/>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Style="{StaticResource SecondaryButton}" Padding="12,5" Margin="6,0,0,0" Content="Gözat…" Click="Browse_Click"/>
+            <TextBox x:Name="DirBox" TextChanged="Dir_Changed"/>
+        </DockPanel>
+
+        <Border Background="#F8FAFC" BorderBrush="{StaticResource Border}" BorderThickness="1" CornerRadius="6" Padding="12,9" Margin="0,14,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/><RowDefinition/><RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Tür:" Foreground="{StaticResource Muted}" Margin="0,0,12,4"/>
+                <TextBlock x:Name="KindText" Grid.Column="1" Text="—" Margin="0,0,0,4"/>
+                <TextBlock Grid.Row="1" Text="Boyut:" Foreground="{StaticResource Muted}" Margin="0,0,12,4"/>
+                <TextBlock x:Name="SizeText" Grid.Row="1" Grid.Column="1" Text="—" Margin="0,0,0,4"/>
+                <TextBlock Grid.Row="2" Text="Devam desteği:" Foreground="{StaticResource Muted}" Margin="0,0,12,0"/>
+                <TextBlock x:Name="ResumeText" Grid.Row="2" Grid.Column="1" Text="—"/>
+            </Grid>
+        </Border>
+
+        <Border x:Name="TracksPanel" Visibility="Collapsed" Background="#F8FAFC" BorderBrush="{StaticResource Border}" BorderThickness="1" CornerRadius="6" Padding="12,9" Margin="0,10,0,0">
+            <StackPanel>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <Button Style="{StaticResource ToolButton}" Padding="8,2" Content="Tümü" Click="TracksAll_Click"/>
+                        <Button Style="{StaticResource ToolButton}" Padding="8,2" Content="Hiçbiri" Click="TracksNone_Click"/>
+                    </StackPanel>
+                    <TextBlock Text="Dublaj ve altyazı" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                </DockPanel>
+                <TextBlock x:Name="TracksStatus" Foreground="{StaticResource Muted}" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                <StackPanel x:Name="ModePanel" Orientation="Horizontal" Margin="0,8,0,0" Visibility="Collapsed">
+                    <RadioButton x:Name="ModeVideo" GroupName="mode" Content="Video + seçilen ses ve altyazılar" IsChecked="True" Margin="0,0,18,0" Checked="Mode_Changed"/>
+                    <RadioButton x:Name="ModeAudio" GroupName="mode" Content="Yalnızca dublaj (ses dosyası)" Checked="Mode_Changed"/>
+                </StackPanel>
+                <TextBlock x:Name="AudioHeader" Text="Ses / dublaj" Foreground="{StaticResource Muted}" Margin="0,8,0,2"/>
+                <WrapPanel x:Name="AudioPanel"/>
+                <TextBlock x:Name="SubHeader" Text="Altyazı" Foreground="{StaticResource Muted}" Margin="0,8,0,2"/>
+                <ScrollViewer x:Name="SubScroll" MaxHeight="120" VerticalScrollBarVisibility="Auto">
+                    <WrapPanel x:Name="SubPanel"/>
+                </ScrollViewer>
+                <TextBlock x:Name="MkvHint" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0" TextWrapping="Wrap"
+                           Text="Birden fazla ses ya da altyazı seçilirse tek bir MKV dosyası oluşturulur."/>
+            </StackPanel>
+        </Border>
+
+        <CheckBox x:Name="DontAsk" Content="Bu pencereyi bir daha gösterme (eklentiden gelenler doğrudan başlar)" Margin="0,12,0,0" Foreground="{StaticResource Muted}"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Style="{StaticResource SecondaryButton}" Content="İptal" Margin="0,0,8,0" IsCancel="True" Click="Cancel_Click"/>
+            <Button Style="{StaticResource SecondaryButton}" Content="Sonra indir" Margin="0,0,8,0" Click="Later_Click"/>
+            <Button x:Name="StartButton" Style="{StaticResource PrimaryButton}" Content="Şimdi indir" IsDefault="True" Click="Start_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

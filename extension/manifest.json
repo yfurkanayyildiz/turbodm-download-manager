@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "TurboDM — Video ve Dosya İndirici",
+  "short_name": "TurboDM",
+  "version": "1.1.1",
+  "description": "Sayfalardaki video/ses akışlarını yakalar, indirmeleri TurboDM masaüstü uygulamasına gönderir (çok bağlantılı hızlı indirme).",
+  "permissions": ["webRequest", "downloads", "contextMenus", "storage", "cookies", "notifications"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TurboDM",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+}

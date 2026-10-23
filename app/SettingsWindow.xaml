@@ -1,0 +1,81 @@
+<Window x:Class="TurboDM.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ayarlar — TurboDM" Width="620" SizeToContent="Height" MaxHeight="820" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" Background="{StaticResource Panel}" ShowInTaskbar="False">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Margin="20,16,20,16">
+        <TextBlock Text="İndirme" FontWeight="SemiBold" FontSize="15" Margin="0,0,0,8"/>
+        <Label Content="Ana indirme klasörü"/>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Style="{StaticResource SecondaryButton}" Padding="12,5" Margin="6,0,0,0" Content="Gözat…" Click="BrowseFolder_Click"/>
+            <TextBox x:Name="FolderBox"/>
+        </DockPanel>
+        <CheckBox x:Name="CategoryCheck" Content="Dosyaları türüne göre alt klasörlere ayır (Video, Müzik, Belgeler…)" Margin="0,8,0,0"/>
+
+        <Grid Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Label Content="Dosya başına bağlantı"/>
+                <ComboBox x:Name="ConnBox"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Label Content="Aynı anda indirme"/>
+                <ComboBox x:Name="ConcurrentBox"/>
+            </StackPanel>
+            <StackPanel Grid.Column="4">
+                <Label Content="Hız sınırı (KB/s, 0 = sınırsız)"/>
+                <TextBox x:Name="LimitBox"/>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Text="Tarayıcı" FontWeight="SemiBold" FontSize="15" Margin="0,18,0,8"/>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="140"/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+            <StackPanel>
+                <Label Content="Köprü portu"/>
+                <TextBox x:Name="PortBox"/>
+            </StackPanel>
+            <TextBlock Grid.Column="2" VerticalAlignment="Bottom" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,0,0,4"
+                       Text="Eklentideki port ile aynı olmalı (varsayılan 9614)."/>
+        </Grid>
+        <CheckBox x:Name="AskCheck" Content="Eklentiden gelen indirmelerde onay penceresi göster" Margin="0,8,0,0"/>
+        <CheckBox x:Name="TrayCheck" Content="Pencere kapatılınca sistem tepsisinde çalışmaya devam et" Margin="0,6,0,0"/>
+        <CheckBox x:Name="NotifyCheck" Content="İndirme bitince bildirim göster" Margin="0,6,0,0"/>
+        <CheckBox x:Name="StartupCheck" Content="Windows açılışında başlat (tepside)" Margin="0,6,0,0"/>
+
+        <TextBlock Text="Ses ve altyazı" FontWeight="SemiBold" FontSize="15" Margin="0,18,0,8"/>
+        <Label Content="Tercih edilen diller (virgülle, ör. tr,en)"/>
+        <TextBox x:Name="LangsBox"/>
+        <CheckBox x:Name="SubsCheck" Content="Bu dillerdeki altyazıları da indir" Margin="0,8,0,0"/>
+        <CheckBox x:Name="AllTracksCheck" Content="Bulunan tüm dublaj ve altyazıları indir (dil tercihini yok sayar)" Margin="0,6,0,0"/>
+        <TextBlock Foreground="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,6,0,0"
+                   Text="Birden fazla ses veya altyazı varsa hepsi tek bir MKV dosyasında birleştirilir; oynatıcıdan (VLC, MPC-HC) seçilir."/>
+
+        <TextBlock Text="Araçlar" FontWeight="SemiBold" FontSize="15" Margin="0,18,0,8"/>
+        <Label Content="yt-dlp.exe yolu (boş = otomatik)"/>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Style="{StaticResource SecondaryButton}" Padding="12,5" Margin="6,0,0,0" Content="Gözat…" Click="BrowseYtDlp_Click"/>
+            <TextBox x:Name="YtDlpBox"/>
+        </DockPanel>
+        <Label Content="ffmpeg.exe yolu (boş = otomatik)" Margin="0,8,0,0"/>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Style="{StaticResource SecondaryButton}" Padding="12,5" Margin="6,0,0,0" Content="Gözat…" Click="BrowseFfmpeg_Click"/>
+            <TextBox x:Name="FfmpegBox"/>
+        </DockPanel>
+        <Label Content="yt-dlp format seçimi" Margin="0,8,0,0"/>
+        <ComboBox x:Name="FormatBox" IsEditable="True"/>
+        <DockPanel Margin="0,10,0,0">
+            <Button x:Name="UpdateYtDlpButton" DockPanel.Dock="Right" Style="{StaticResource SecondaryButton}" Padding="12,5" Content="yt-dlp'yi indir / güncelle" Click="UpdateYtDlp_Click"/>
+            <TextBlock x:Name="ToolStatus" Foreground="{StaticResource Muted}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        </DockPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Style="{StaticResource SecondaryButton}" Content="İptal" Margin="0,0,8,0" IsCancel="True"/>
+            <Button Style="{StaticResource PrimaryButton}" Content="Kaydet" IsDefault="True" Click="Save_Click"/>
+        </StackPanel>
+    </StackPanel>
+    </ScrollViewer>
+</Window>
